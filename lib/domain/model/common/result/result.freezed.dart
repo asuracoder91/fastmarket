@@ -70,7 +70,7 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'Result<$T>.Success(data: $data)';
+  return 'Result<$T>.success(data: $data)';
 }
 
 

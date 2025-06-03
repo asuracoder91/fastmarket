@@ -1,21 +1,22 @@
+import 'package:fastmarket/core/utils/extensions.dart';
 import 'package:fastmarket/domain/repository/display.repository.dart';
-
+import '../../../../core/utils/constant.dart';
 import '../../../../core/utils/error/error_response.dart';
-import '../../../../presentation/main/cubit/mall_type/cubit/mall_type_cubit.dart';
-import '../../../model/common/result.dart';
+import '../../../model/common/result/result.dart';
+import '../../../model/display/display.model.dart';
 import '../../base/remote.usecase.dart';
 
-class GetMunusUsecase extends RemoteUsecase<DisplayRepository> {
+class GetMenusUsecase extends RemoteUsecase<DisplayRepository> {
   final MallType mallType;
 
-  GetMunusUsecase(this.mallType);
+  GetMenusUsecase({required this.mallType});
 
   @override
-  Future call(DisplayRepository repository) async {
+  Future<Result<List<Menu>>> call(DisplayRepository repository) async {
     final result = await repository.getMenusByMallType(mallType: mallType);
 
-    return result.status == 'SUCCESS'
-        ? Result.Success(result.data ?? [])
+    return (result.status.isSuccess)
+        ? Result.success(result.data ?? [])
         : Result.failure(
           ErrorResponse(
             status: result.status,
