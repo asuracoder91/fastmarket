@@ -1,7 +1,7 @@
-import 'package:fastmarket/core/theme/custom/custom_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/custom/custom_app_bar.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../cubit/mall_type/cubit/mall_type_cubit.dart';
 
@@ -16,10 +16,8 @@ class HomeAppBar extends StatelessWidget {
         builder: (_, state) {
           return AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            color:
-                state.mallType.isMarket
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.surface,
+            color: state.mallType.theme.backgroundColor,
+
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             child: AppBar(
               backgroundColor: Colors.transparent,
@@ -27,15 +25,15 @@ class HomeAppBar extends StatelessWidget {
               title: AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
                 decoration: BoxDecoration(
-                  color:
-                      state.mallType.isMarket
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(30),
+                  color: state.mallType.theme.containerColor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(CustomAppBarTheme.tabBarRadius),
+                  ),
                 ),
                 curve: Curves.easeInOut,
                 child: SizedBox(
                   height: 28,
+
                   child: DefaultTabController(
                     initialIndex: state.mallType.index,
                     length: MallType.values.length,
@@ -43,24 +41,18 @@ class HomeAppBar extends StatelessWidget {
                       onTap:
                           (index) =>
                               context.read<MallTypeCubit>().changeIndex(index),
-                      labelColor:
-                          state.mallType.isMarket
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.surface,
+                      labelColor: state.mallType.theme.labelColor,
                       unselectedLabelColor:
-                          state.mallType.isMarket
-                              ? Theme.of(context).colorScheme.surface
-                              : Theme.of(context).colorScheme.contentPrimary,
+                          state.mallType.theme.unselectedLabelColor,
                       tabs:
                           MallType.values
                               .map((e) => Tab(text: e.toName))
                               .toList(),
                       indicator: BoxDecoration(
-                        color:
-                            state.mallType.isMarket
-                                ? Theme.of(context).colorScheme.surface
-                                : Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(30),
+                        color: state.mallType.theme.indicatorColor,
+                        borderRadius: BorderRadius.circular(
+                          CustomAppBarTheme.tabBarRadius,
+                        ),
                       ),
                       dividerColor: Colors.transparent,
                       labelPadding: const EdgeInsets.symmetric(horizontal: 12),
@@ -69,7 +61,7 @@ class HomeAppBar extends StatelessWidget {
                       unselectedLabelStyle:
                           Theme.of(context).textTheme.labelLarge,
                       splashBorderRadius: BorderRadius.circular(30),
-                      isScrollable: true,
+                      isScrollable: false,
                       indicatorSize: TabBarIndicatorSize.tab,
                     ),
                   ),
@@ -80,9 +72,7 @@ class HomeAppBar extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Assets.svg.mainLogo.svg(
                   colorFilter: ColorFilter.mode(
-                    state.mallType.isMarket
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.primary,
+                    state.mallType.theme.logoColor,
                     BlendMode.srcIn,
                   ),
                 ),
@@ -92,9 +82,7 @@ class HomeAppBar extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: Assets.svg.iconLocation.svg(
                     colorFilter: ColorFilter.mode(
-                      state.mallType.isMarket
-                          ? Theme.of(context).colorScheme.surface
-                          : Theme.of(context).colorScheme.contentPrimary,
+                      state.mallType.theme.iconColor,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -103,9 +91,7 @@ class HomeAppBar extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: Assets.svg.iconCart.svg(
                     colorFilter: ColorFilter.mode(
-                      state.mallType.isMarket
-                          ? Theme.of(context).colorScheme.surface
-                          : Theme.of(context).colorScheme.contentPrimary,
+                      state.mallType.theme.iconColor,
                       BlendMode.srcIn,
                     ),
                   ),
