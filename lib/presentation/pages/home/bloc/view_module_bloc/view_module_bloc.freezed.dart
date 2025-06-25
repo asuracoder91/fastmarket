@@ -26,12 +26,12 @@ $ViewModuleStateCopyWith<ViewModuleState> get copyWith => _$ViewModuleStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ViewModuleState&&const DeepCollectionEquality().equals(other.status, status)&&const DeepCollectionEquality().equals(other.error, error)&&(identical(other.tabId, tabId) || other.tabId == tabId)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.isEndOfPage, isEndOfPage) || other.isEndOfPage == isEndOfPage)&&const DeepCollectionEquality().equals(other.viewModules, viewModules));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ViewModuleState&&(identical(other.status, status) || other.status == status)&&(identical(other.error, error) || other.error == error)&&(identical(other.tabId, tabId) || other.tabId == tabId)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.isEndOfPage, isEndOfPage) || other.isEndOfPage == isEndOfPage)&&const DeepCollectionEquality().equals(other.viewModules, viewModules));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(status),const DeepCollectionEquality().hash(error),tabId,currentPage,isEndOfPage,const DeepCollectionEquality().hash(viewModules));
+int get hashCode => Object.hash(runtimeType,status,error,tabId,currentPage,isEndOfPage,const DeepCollectionEquality().hash(viewModules));
 
 @override
 String toString() {
@@ -63,10 +63,10 @@ class _$ViewModuleStateCopyWithImpl<$Res>
 
 /// Create a copy of ViewModuleState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? error = freezed,Object? tabId = null,Object? currentPage = null,Object? isEndOfPage = null,Object? viewModules = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? error = null,Object? tabId = null,Object? currentPage = null,Object? isEndOfPage = null,Object? viewModules = null,}) {
   return _then(_self.copyWith(
-status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as Status,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as Status,error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as ErrorResponse,tabId: null == tabId ? _self.tabId : tabId // ignore: cast_nullable_to_non_nullable
 as int,currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
 as int,isEndOfPage: null == isEndOfPage ? _self.isEndOfPage : isEndOfPage // ignore: cast_nullable_to_non_nullable
@@ -108,12 +108,12 @@ _$ViewModuleStateCopyWith<_ViewModuleState> get copyWith => __$ViewModuleStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ViewModuleState&&const DeepCollectionEquality().equals(other.status, status)&&const DeepCollectionEquality().equals(other.error, error)&&(identical(other.tabId, tabId) || other.tabId == tabId)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.isEndOfPage, isEndOfPage) || other.isEndOfPage == isEndOfPage)&&const DeepCollectionEquality().equals(other._viewModules, _viewModules));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ViewModuleState&&(identical(other.status, status) || other.status == status)&&(identical(other.error, error) || other.error == error)&&(identical(other.tabId, tabId) || other.tabId == tabId)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.isEndOfPage, isEndOfPage) || other.isEndOfPage == isEndOfPage)&&const DeepCollectionEquality().equals(other._viewModules, _viewModules));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(status),const DeepCollectionEquality().hash(error),tabId,currentPage,isEndOfPage,const DeepCollectionEquality().hash(_viewModules));
+int get hashCode => Object.hash(runtimeType,status,error,tabId,currentPage,isEndOfPage,const DeepCollectionEquality().hash(_viewModules));
 
 @override
 String toString() {
@@ -145,10 +145,10 @@ class __$ViewModuleStateCopyWithImpl<$Res>
 
 /// Create a copy of ViewModuleState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? error = freezed,Object? tabId = null,Object? currentPage = null,Object? isEndOfPage = null,Object? viewModules = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? error = null,Object? tabId = null,Object? currentPage = null,Object? isEndOfPage = null,Object? viewModules = null,}) {
   return _then(_ViewModuleState(
-status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as Status,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as Status,error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as ErrorResponse,tabId: null == tabId ? _self.tabId : tabId // ignore: cast_nullable_to_non_nullable
 as int,currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
 as int,isEndOfPage: null == isEndOfPage ? _self.isEndOfPage : isEndOfPage // ignore: cast_nullable_to_non_nullable

@@ -1,3 +1,4 @@
+import 'package:fastmarket/presentation/pages/home/component/view_module_list/brand_product.view_module.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/extensions.dart';
@@ -7,8 +8,8 @@ import '../carousel.view_module.dart';
 import '../category_product.view_module.dart';
 import '../scroll.view_module.dart';
 import '../special_price.view_module.dart';
-import '../view_module_A.dart';
 import '../view_module_B.dart';
+import '../view_module_A.dart';
 import '../view_module_C.dart';
 import '../view_module_D.dart';
 import '../view_module_E.dart';
@@ -66,6 +67,8 @@ extension ModulesEx on Modules {
         return SpecialPriceViewModule(info: info);
       case Modules.categoryProductViewModule:
         return CategoryProductViewModule(info: info);
+      case Modules.brandProductViewModule:
+        return BrandProductViewModule(info: info);
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../dto/common/response_wrapper/response_wrapper.dart';
@@ -19,5 +18,6 @@ abstract class DisplayApi {
   @GET('/api/view-modules/{tab_id}')
   Future<ResponseWrapper<List<ViewModuleDto>>> getViewModulesByTabId(
     @Path('tab_id') int tabId,
+    @Query('page') int page,
   );
 }

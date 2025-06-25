@@ -1,7 +1,5 @@
 part of 'mall_type_cubit.dart';
 
-enum MallType { market, beauty }
-
 @immutable
 class MallTypeState {
   final MallType mallType;

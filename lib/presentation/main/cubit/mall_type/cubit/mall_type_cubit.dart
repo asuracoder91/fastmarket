@@ -2,6 +2,8 @@ import 'package:fastmarket/core/theme/custom/custom_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../../core/utils/constant.dart';
+
 part 'mall_type_state.dart';
 
 class MallTypeCubit extends Cubit<MallTypeState> {

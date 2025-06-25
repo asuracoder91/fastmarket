@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
@@ -15,10 +16,14 @@ part 'menu_event.dart';
 part 'menu_state.dart';
 part 'menu_bloc.freezed.dart';
 
+@injectable
 class MenuBloc extends Bloc<MenuEvent, MenuState> {
   final DisplayUsecase _displayUsecase;
 
-  MenuBloc(this._displayUsecase) : super(MenuState());
+  MenuBloc(this._displayUsecase) : super(MenuState()) {
+    on<MenuInitialized>(_onMenusInitialized);
+  }
+
   Future<void> _onMenusInitialized(
     MenuInitialized event,
     Emitter<MenuState> emit,
@@ -28,20 +33,17 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     emit(state.copyWith(status: Status.loading));
     try {
       final Result<List<Menu>> response = await _fetch(mallType: mallType);
-      response.when(
-        success: (menus) {
-          emit(
-            state.copyWith(
-              status: Status.success,
-              mallType: mallType,
-              menus: menus,
-            ),
-          );
-        },
-        failure: (error) {
-          emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+      if (response is Success<List<Menu>>) {
+        emit(
+          state.copyWith(
+            status: Status.success,
+            mallType: mallType,
+            menus: response.data,
+          ),
+        );
+      } else if (response is Error<List<Menu>>) {
+        emit(state.copyWith(status: Status.error, error: response.error));
+      }
     } catch (error) {
       CustomLogger.logger.e(error);
       emit(

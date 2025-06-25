@@ -11,7 +11,7 @@ class CustomThemeData {
     fontFamily: 'Pretendard',
     textTheme: CustomTheme.textTheme,
     dividerTheme: DividerThemeData(color: AppColors.outline),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicator: const UnderlineTabIndicator(
         borderSide: BorderSide(color: AppColors.primary, width: 2),
       ),

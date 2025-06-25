@@ -6,7 +6,7 @@ import 'package:fastmarket/domain/model/display/menu/menu.model.dart';
 import 'package:fastmarket/domain/repository/display.repository.dart';
 import 'package:fastmarket/domain/usecase/display/display.usecase.dart';
 import 'package:fastmarket/domain/usecase/display/menu/get_menus.usecase.dart';
-import 'package:fastmarket/presentation/main/cubit/mall_type/cubit/mall_type_cubit.dart';
+import 'package:fastmarket/core/utils/constant.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

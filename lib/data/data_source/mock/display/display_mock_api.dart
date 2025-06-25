@@ -40,25 +40,24 @@ class DisplayMockApi implements DisplayApi {
   @override
   Future<ResponseWrapper<List<ViewModuleDto>>> getViewModulesByTabId(
     int tabId,
+    int page,
   ) {
-    late String source;
-    final endOfTabId = tabId % 10;
-    switch (endOfTabId) {
-      case 1:
-        source = DisplayMockData.viewModulesByTabIdCaseOne;
-
-      case 2:
-        source = DisplayMockData.viewModulesByTabIdCaseTwo;
-
-      case 3:
-        source = DisplayMockData.viewModulesByTabIdCaseThree;
-      case 4:
-        source = DisplayMockData.viewModulesByTabIdCaseFour;
-      case 5:
-        source = DisplayMockData.viewModulesByTabIdCaseFive;
+    if (page == 4) {
+      return Future.delayed(
+        Duration(milliseconds: 800),
+        () => ResponseWrapper(
+          status: 'SUCCESS',
+          code: '0000',
+          message: '',
+          data: [],
+        ),
+      );
     }
 
-    return Future(
+    String source = DisplayMockData.getViewModules();
+
+    return Future.delayed(
+      Duration(milliseconds: 800),
       () => ResponseWrapper(
         status: 'SUCCESS',
         code: '0000',

@@ -18,7 +18,7 @@ class AddCartButton extends StatelessWidget {
       child: GestureDetector(
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.47),
+            color: Theme.of(context).primaryColor.withAlpha(120),
             shape: BoxShape.circle,
           ),
           width: 32,

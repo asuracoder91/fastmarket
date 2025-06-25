@@ -6,15 +6,12 @@ import 'package:flutter/material.dart';
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../domain/model/display/display.model.dart';
-import 'factory/view_module_widget.dart';
+import 'view_module_factory/view_module_widget.dart';
 
 class CarouselViewModule extends StatefulWidget with ViewModuleWidget {
   final ViewModule info;
 
-  const CarouselViewModule({
-    Key? key,
-    required this.info,
-  }) : super(key: key);
+  const CarouselViewModule({super.key, required this.info});
 
   @override
   State<CarouselViewModule> createState() => _CarouselViewModuleState();
@@ -56,6 +53,31 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
     List<ProductInfo> products = widget.info.products;
 
     return RawGestureDetector(
+      gestures: {
+        CustomGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<CustomGestureRecognizer>(
+              () => CustomGestureRecognizer(),
+              (CustomGestureRecognizer instance) {
+                instance.onDown = (_) {
+                  if (_timer.isActive) {
+                    _timer.cancel();
+                  }
+                };
+
+                instance.onCancel = () {
+                  if (!_timer.isActive) {
+                    _timer = periodicTimer();
+                  }
+                };
+
+                instance.onEnd = (_) {
+                  if (!_timer.isActive) {
+                    _timer = periodicTimer();
+                  }
+                };
+              },
+            ),
+      },
       child: AspectRatio(
         aspectRatio: 375 / 340,
         child: Stack(
@@ -86,31 +108,6 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
           ],
         ),
       ),
-      gestures: {
-        CustomGestureRecognizer:
-            GestureRecognizerFactoryWithHandlers<CustomGestureRecognizer>(
-          () => CustomGestureRecognizer(),
-          (CustomGestureRecognizer instance) {
-            instance.onDown = (_) {
-              if (_timer.isActive) {
-                _timer.cancel();
-              }
-            };
-
-            instance.onCancel = () {
-              if (!_timer.isActive) {
-                _timer = periodicTimer();
-              }
-            };
-
-            instance.onEnd = (_) {
-              if (!_timer.isActive) {
-                _timer = periodicTimer();
-              }
-            };
-          },
-        ),
-      },
     );
   }
 }
@@ -127,28 +124,25 @@ class PageCountWidget extends StatelessWidget {
   final int totalPage;
 
   const PageCountWidget({
-    Key? key,
+    super.key,
     required this.currentPage,
     required this.totalPage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.74),
+        color: Theme.of(context).colorScheme.inverseSurface.withAlpha(170),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 2,
-          horizontal: 8,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
         child: Text(
           '$currentPage / $totalPage',
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: AppColors.white,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge?.copyWith(color: AppColors.white),
         ),
       ),
     );

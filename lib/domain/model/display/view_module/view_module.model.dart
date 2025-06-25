@@ -18,6 +18,6 @@ abstract class ViewModule with _$ViewModule {
     required List<String> tabs,
   }) = _ViewModule;
 
-  factory ViewModule.fromJson(Map<String, Object?> json) =>
+  factory ViewModule.fromJson(Map<String, dynamic> json) =>
       _$ViewModuleFromJson(json);
 }
