@@ -10,6 +10,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:fastmarket/data/data_source/data_source_module.dart' as _i890;
+import 'package:fastmarket/data/data_source/local_storage/display.dao.dart'
+    as _i930;
 import 'package:fastmarket/data/data_source/remote/display.api.dart' as _i901;
 import 'package:fastmarket/data/repository_impl/display.repository_impl.dart'
     as _i533;
@@ -35,8 +37,12 @@ extension GetItInjectableX on _i174.GetIt {
     final dataSourceModule = _$DataSourceModule();
     gh.factory<_i851.CartBloc>(() => _i851.CartBloc());
     gh.singleton<_i901.DisplayApi>(() => dataSourceModule.displayApi);
+    gh.singleton<_i930.DisplayDao>(() => dataSourceModule.displayDao);
     gh.singleton<_i566.DisplayRepository>(
-      () => _i533.DisplayRepositoryImpl(gh<_i901.DisplayApi>()),
+      () => _i533.DisplayRepositoryImpl(
+        gh<_i901.DisplayApi>(),
+        gh<_i930.DisplayDao>(),
+      ),
     );
     gh.singleton<_i862.DisplayUsecase>(
       () => _i862.DisplayUsecase(gh<_i566.DisplayRepository>()),

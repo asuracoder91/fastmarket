@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import 'data/data_source/local_storage/display.dao.dart';
 import 'data/data_source/mock/display/display_mock_api.dart';
 import 'data/data_source/remote/display.api.dart';
 import 'data/repository_impl/display.repository_impl.dart';
@@ -22,7 +23,7 @@ void _data() {
 
 void _domain() {
   locator.registerSingleton<DisplayRepository>(
-    DisplayRepositoryImpl(locator<DisplayApi>()),
+    DisplayRepositoryImpl(locator<DisplayApi>(), locator<DisplayDao>()),
   );
 
   locator.registerSingleton<DisplayUsecase>(

@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../domain/model/display/menu/menu.model.dart';
 import '../../domain/repository/display.repository.dart';
 import '../../core/utils/constant.dart';
+import '../data_source/local_storage/display.dao.dart';
 import '../dto/common/response_wrapper/response_wrapper.dart';
 import '../mapper/common.mapper.dart';
 import '../../domain/model/display/cart/cart.model.dart';
@@ -13,8 +14,8 @@ import '../../domain/model/display/view_module/view_module.model.dart';
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
   final DisplayApi _displayApi;
-
-  DisplayRepositoryImpl(this._displayApi);
+  final DisplayDao _displayDao;
+  DisplayRepositoryImpl(this._displayApi, this._displayDao);
 
   @override
   Future<ResponseWrapper<List<Menu>>> getMenusByMallType({
@@ -41,24 +42,36 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
   @override
   Future<ResponseWrapper<List<Cart>>> getCartList() async {
-    throw UnimplementedError();
+    final response = await _displayDao.getCartList();
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
   }
 
   @override
   Future<ResponseWrapper<List<Cart>>> addCartList({required Cart cart}) async {
-    throw UnimplementedError();
+    final response = await _displayDao.insertCart(cart.toEntity());
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
   }
 
   @override
   Future<ResponseWrapper<List<Cart>>> deleteCartByPrdId(
     List<String> productIds,
   ) async {
-    throw UnimplementedError();
+    final response = await _displayDao.deleteCart(productIds);
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
   }
 
   @override
   Future<ResponseWrapper<List<Cart>>> clearCartList() async {
-    throw UnimplementedError();
+    final response = await _displayDao.clearCart();
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
   }
 
   @override
@@ -66,6 +79,9 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required String productId,
     required int qty,
   }) async {
-    throw UnimplementedError();
+    final response = await _displayDao.changeQtyCart(productId, qty);
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
   }
 }

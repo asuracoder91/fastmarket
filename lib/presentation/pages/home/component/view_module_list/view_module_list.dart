@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/view_module_bloc/view_module_bloc.dart';
+import '../footer/footer.dart';
 
 class ViewModuleList extends StatefulWidget {
   const ViewModuleList({super.key, required this.tabId});
@@ -59,7 +60,8 @@ class _ViewModuleListState extends State<ViewModuleList> {
                 controller: scrollController,
                 children: [
                   ...state.viewModules,
-                  if (state.status.isLoading) LoadingWidget(),
+                  if (state.status.isLoading) LoadingWidget(isBottom: true),
+                  Footer(),
                 ],
               );
 

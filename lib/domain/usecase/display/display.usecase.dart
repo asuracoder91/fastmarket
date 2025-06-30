@@ -1,7 +1,7 @@
 import 'package:fastmarket/domain/repository/display.repository.dart';
 import 'package:injectable/injectable.dart';
 
-import '../base/remote.usecase.dart';
+import '../base/usecase.dart';
 
 @singleton
 class DisplayUsecase {
@@ -9,7 +9,7 @@ class DisplayUsecase {
 
   DisplayUsecase(this._displayRepository);
 
-  Future execute<T>({required RemoteUsecase usecase}) async {
+  Future execute<T>({required Usecase usecase}) async {
     return usecase.call(_displayRepository);
   }
 }

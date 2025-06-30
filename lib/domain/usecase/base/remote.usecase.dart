@@ -1,5 +1,4 @@
-import 'package:fastmarket/domain/repository/repository.dart';
+import '../../repository/repository.dart';
+import 'usecase.dart';
 
-abstract class RemoteUsecase<T extends Repository> {
-  Future call(T repository);
-}
+abstract class RemoteUsecase<T extends Repository> extends Usecase<T> {}

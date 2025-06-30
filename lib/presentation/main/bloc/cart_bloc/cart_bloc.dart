@@ -105,6 +105,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       );
     }
   }
+
+  @override
+  void onChange(Change<CartState> change) {
+    super.onChange(change);
+    print(
+      'onChange: ${change.currentState.status} ---> ${change.nextState.status}',
+    );
+  }
 }
 
 extension CartStatusEx on CartStatus {
