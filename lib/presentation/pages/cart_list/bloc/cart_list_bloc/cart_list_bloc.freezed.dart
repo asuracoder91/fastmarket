@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CartListState {
 
- Status get status; ErrorResponse get error; List<Cart> get cartList; List<String> get selectedProduct; int get totalPrice;
+ Status get status; List<Cart> get cartList; List<String> get selectedProduct; int get totalPrice; ErrorResponse get error;
 /// Create a copy of CartListState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $CartListStateCopyWith<CartListState> get copyWith => _$CartListStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartListState&&(identical(other.status, status) || other.status == status)&&(identical(other.error, error) || other.error == error)&&const DeepCollectionEquality().equals(other.cartList, cartList)&&const DeepCollectionEquality().equals(other.selectedProduct, selectedProduct)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartListState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.cartList, cartList)&&const DeepCollectionEquality().equals(other.selectedProduct, selectedProduct)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,error,const DeepCollectionEquality().hash(cartList),const DeepCollectionEquality().hash(selectedProduct),totalPrice);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(cartList),const DeepCollectionEquality().hash(selectedProduct),totalPrice,error);
 
 @override
 String toString() {
-  return 'CartListState(status: $status, error: $error, cartList: $cartList, selectedProduct: $selectedProduct, totalPrice: $totalPrice)';
+  return 'CartListState(status: $status, cartList: $cartList, selectedProduct: $selectedProduct, totalPrice: $totalPrice, error: $error)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $CartListStateCopyWith<$Res>  {
   factory $CartListStateCopyWith(CartListState value, $Res Function(CartListState) _then) = _$CartListStateCopyWithImpl;
 @useResult
 $Res call({
- Status status, ErrorResponse error, List<Cart> cartList, List<String> selectedProduct, int totalPrice
+ Status status, List<Cart> cartList, List<String> selectedProduct, int totalPrice, ErrorResponse error
 });
 
 
@@ -63,14 +63,14 @@ class _$CartListStateCopyWithImpl<$Res>
 
 /// Create a copy of CartListState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? error = null,Object? cartList = null,Object? selectedProduct = null,Object? totalPrice = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? cartList = null,Object? selectedProduct = null,Object? totalPrice = null,Object? error = null,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as Status,error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as ErrorResponse,cartList: null == cartList ? _self.cartList : cartList // ignore: cast_nullable_to_non_nullable
+as Status,cartList: null == cartList ? _self.cartList : cartList // ignore: cast_nullable_to_non_nullable
 as List<Cart>,selectedProduct: null == selectedProduct ? _self.selectedProduct : selectedProduct // ignore: cast_nullable_to_non_nullable
 as List<String>,totalPrice: null == totalPrice ? _self.totalPrice : totalPrice // ignore: cast_nullable_to_non_nullable
-as int,
+as int,error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as ErrorResponse,
   ));
 }
 
@@ -81,11 +81,10 @@ as int,
 
 
 class _CartListState implements CartListState {
-   _CartListState({this.status = Status.initial, this.error = const ErrorResponse(), final  List<Cart> cartList = const <Cart>[], final  List<String> selectedProduct = const <String>[], this.totalPrice = 0}): _cartList = cartList,_selectedProduct = selectedProduct;
+   _CartListState({this.status = Status.initial, final  List<Cart> cartList = const <Cart>[], final  List<String> selectedProduct = const <String>[], this.totalPrice = 0, this.error = const ErrorResponse()}): _cartList = cartList,_selectedProduct = selectedProduct;
   
 
 @override@JsonKey() final  Status status;
-@override@JsonKey() final  ErrorResponse error;
  final  List<Cart> _cartList;
 @override@JsonKey() List<Cart> get cartList {
   if (_cartList is EqualUnmodifiableListView) return _cartList;
@@ -101,6 +100,7 @@ class _CartListState implements CartListState {
 }
 
 @override@JsonKey() final  int totalPrice;
+@override@JsonKey() final  ErrorResponse error;
 
 /// Create a copy of CartListState
 /// with the given fields replaced by the non-null parameter values.
@@ -112,16 +112,16 @@ _$CartListStateCopyWith<_CartListState> get copyWith => __$CartListStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartListState&&(identical(other.status, status) || other.status == status)&&(identical(other.error, error) || other.error == error)&&const DeepCollectionEquality().equals(other._cartList, _cartList)&&const DeepCollectionEquality().equals(other._selectedProduct, _selectedProduct)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartListState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._cartList, _cartList)&&const DeepCollectionEquality().equals(other._selectedProduct, _selectedProduct)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,error,const DeepCollectionEquality().hash(_cartList),const DeepCollectionEquality().hash(_selectedProduct),totalPrice);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_cartList),const DeepCollectionEquality().hash(_selectedProduct),totalPrice,error);
 
 @override
 String toString() {
-  return 'CartListState(status: $status, error: $error, cartList: $cartList, selectedProduct: $selectedProduct, totalPrice: $totalPrice)';
+  return 'CartListState(status: $status, cartList: $cartList, selectedProduct: $selectedProduct, totalPrice: $totalPrice, error: $error)';
 }
 
 
@@ -132,7 +132,7 @@ abstract mixin class _$CartListStateCopyWith<$Res> implements $CartListStateCopy
   factory _$CartListStateCopyWith(_CartListState value, $Res Function(_CartListState) _then) = __$CartListStateCopyWithImpl;
 @override @useResult
 $Res call({
- Status status, ErrorResponse error, List<Cart> cartList, List<String> selectedProduct, int totalPrice
+ Status status, List<Cart> cartList, List<String> selectedProduct, int totalPrice, ErrorResponse error
 });
 
 
@@ -149,14 +149,14 @@ class __$CartListStateCopyWithImpl<$Res>
 
 /// Create a copy of CartListState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? error = null,Object? cartList = null,Object? selectedProduct = null,Object? totalPrice = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? cartList = null,Object? selectedProduct = null,Object? totalPrice = null,Object? error = null,}) {
   return _then(_CartListState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as Status,error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as ErrorResponse,cartList: null == cartList ? _self._cartList : cartList // ignore: cast_nullable_to_non_nullable
+as Status,cartList: null == cartList ? _self._cartList : cartList // ignore: cast_nullable_to_non_nullable
 as List<Cart>,selectedProduct: null == selectedProduct ? _self._selectedProduct : selectedProduct // ignore: cast_nullable_to_non_nullable
 as List<String>,totalPrice: null == totalPrice ? _self.totalPrice : totalPrice // ignore: cast_nullable_to_non_nullable
-as int,
+as int,error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as ErrorResponse,
   ));
 }
 

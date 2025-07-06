@@ -6,6 +6,7 @@ import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
 import '../../../../../core/utils/exception/common_exception.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../domain/model/common/result/result.dart';
 import '../../../../../domain/model/display/cart/cart.model.dart';
 import '../../../../../domain/model/display/display.model.dart';
 
@@ -37,14 +38,13 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final response = await _displayUsecase.execute(
+      final response = await _displayUsecase.execute<Result<List<Cart>?>>(
         usecase: GetCartListUsecase(),
       );
-      response.when(
-        success: (data) {
-          final List<Cart> cartList = [...data];
-          final List<String> selectedProducts =
-              cartList.map((e) => e.product.productId).toList();
+      switch (response) {
+        case Success(data: final cartList):
+          final selectedProducts =
+              cartList!.map((e) => e.product.productId).toList();
 
           final totalPrice = _calTotalPrice(selectedProducts, cartList);
           emit(
@@ -55,11 +55,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
               selectedProduct: selectedProducts,
             ),
           );
-        },
-        failure: (error) {
+        case Error(error: final error):
           emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+      }
     } catch (error) {
       CustomLogger.logger.e(error);
       emit(
@@ -76,20 +74,21 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     Emitter<CartListState> emit,
   ) async {
     emit(state.copyWith(status: Status.loading));
-    final cart = Cart(quantity: event.quantity, product: event.productInfo);
+
     try {
-      final response = await _displayUsecase.execute(
+      final cart = Cart(quantity: event.quantity, product: event.productInfo);
+      final response = await _displayUsecase.execute<Result<List<Cart>?>>(
         usecase: AddCartListUsecase(cart: cart),
       );
 
-      response.when(
-        success: (cartList) {
+      switch (response) {
+        case Success(data: final cartList):
           final selectedProducts = [...state.selectedProduct];
           final productId = event.productInfo.productId;
           if (selectedProducts.indexWhere((e) => e == productId) == -1) {
             selectedProducts.add(productId);
           }
-          final totalPrice = _calTotalPrice(selectedProducts, cartList);
+          final totalPrice = _calTotalPrice(selectedProducts, cartList!);
           emit(
             state.copyWith(
               status: Status.success,
@@ -98,11 +97,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
               totalPrice: totalPrice,
             ),
           );
-        },
-        failure: (error) {
+        case Error(error: final error):
           emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+      }
     } catch (error) {
       CustomLogger.logger.e(error);
       emit(
@@ -155,9 +152,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
 
   void _onCartSelected(CartListSelected event, Emitter<CartListState> emit) {
     try {
-      final String productId = event.cart.product.productId;
       final selectedProducts = [...state.selectedProduct];
-      final int selectedIdx = state.selectedProduct.indexWhere(
+      final String productId = event.cart.product.productId;
+      final int selectedIdx = selectedProducts.indexWhere(
         (element) => element == productId,
       );
       if (selectedIdx == -1) {
@@ -225,15 +222,13 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     try {
       final productId = event.cart.product.productId;
       final qty = event.cart.quantity + 1;
-      final response = await _displayUsecase.execute(
+      final response = await _displayUsecase.execute<Result<List<Cart>?>>(
         usecase: ChangeCartQtyUsecase(productId: productId, qty: qty),
       );
 
-      response.when(
-        success: (data) {
-          final List<Cart> cartList = [...data];
-
-          final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
+      switch (response) {
+        case Success(data: final cartList):
+          final totalPrice = _calTotalPrice(state.selectedProduct, cartList!);
           emit(
             state.copyWith(
               status: Status.success,
@@ -241,11 +236,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
               totalPrice: totalPrice,
             ),
           );
-        },
-        failure: (error) {
+        case Error(error: final error):
           emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+      }
     } catch (error) {
       CustomLogger.logger.e(error.toString());
       emit(
@@ -265,14 +258,13 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       final productId = event.cart.product.productId;
       final qty = event.cart.quantity - 1;
       if (qty < 1) return;
-      final response = await _displayUsecase.execute(
+      final response = await _displayUsecase.execute<Result<List<Cart>?>>(
         usecase: ChangeCartQtyUsecase(productId: productId, qty: qty),
       );
-      response.when(
-        success: (data) {
-          final List<Cart> cartList = [...data];
 
-          final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
+      switch (response) {
+        case Success(data: final cartList):
+          final totalPrice = _calTotalPrice(state.selectedProduct, cartList!);
           emit(
             state.copyWith(
               status: Status.success,
@@ -280,11 +272,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
               totalPrice: totalPrice,
             ),
           );
-        },
-        failure: (error) {
+        case Error(error: final error):
           emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+      }
     } catch (error) {
       CustomLogger.logger.e(error.toString());
       emit(

@@ -134,7 +134,6 @@ class CartListView extends StatelessWidget {
       ),
       body: BlocBuilder<CartListBloc, CartListState>(
         builder: (_, state) {
-          print(state.status);
           switch (state.status) {
             case Status.initial:
               return const Center(child: Text('initial'));
