@@ -9,7 +9,7 @@ import '../base/local.usecase.dart';
 class AddCartListUsecase extends LocalUsecase<DisplayRepository> {
   final Cart cart;
 
-  AddCartListUsecase(this.cart);
+  AddCartListUsecase({required this.cart});
 
   @override
   Future call(DisplayRepository repository) async {

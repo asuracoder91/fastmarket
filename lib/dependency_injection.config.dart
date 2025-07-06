@@ -20,6 +20,8 @@ import 'package:fastmarket/domain/usecase/display/display.usecase.dart'
     as _i862;
 import 'package:fastmarket/presentation/main/bloc/cart_bloc/cart_bloc.dart'
     as _i851;
+import 'package:fastmarket/presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart'
+    as _i818;
 import 'package:fastmarket/presentation/pages/home/bloc/menu_bloc/menu_bloc.dart'
     as _i502;
 import 'package:fastmarket/presentation/pages/home/bloc/view_module_bloc/view_module_bloc.dart'
@@ -52,6 +54,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i232.ViewModuleBloc>(
       () => _i232.ViewModuleBloc(gh<_i862.DisplayUsecase>()),
+    );
+    gh.factory<_i818.CartListBloc>(
+      () => _i818.CartListBloc(gh<_i862.DisplayUsecase>()),
     );
     return this;
   }

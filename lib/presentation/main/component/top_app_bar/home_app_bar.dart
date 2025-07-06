@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/custom/custom_app_bar.dart';
 import '../../../../core/utils/constant.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../routes/route_path.dart';
 import '../../cubit/mall_type/cubit/mall_type_cubit.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -90,10 +92,15 @@ class HomeAppBar extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Assets.svg.iconCart.svg(
-                    colorFilter: ColorFilter.mode(
-                      state.mallType.theme.iconColor,
-                      BlendMode.srcIn,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.go(RoutePath.cart_list);
+                    },
+                    child: Assets.svg.iconCart.svg(
+                      colorFilter: ColorFilter.mode(
+                        state.mallType.theme.iconColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),
