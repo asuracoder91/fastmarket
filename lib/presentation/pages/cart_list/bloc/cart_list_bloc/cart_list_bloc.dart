@@ -116,15 +116,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     Emitter<CartListState> emit,
   ) async {
     try {
-      final response = await _displayUsecase.execute(
-        usecase: DeleteCartUsecase(productIds: event.productIds),
+      final productIds = event.productIds;
+      final response = await _displayUsecase.execute<Result<List<Cart>?>>(
+        usecase: DeleteCartUsecase(productIds: productIds),
       );
-
-      response.when(
-        success: (data) {
-          final List<Cart> cartList = [...data];
+      switch (response) {
+        case Success(data: final cartList):
           final selectedProducts =
-              cartList.map((e) => e.product.productId).toList();
+              cartList!.map((e) => e.product.productId).toList();
           final totalPrice = _calTotalPrice(selectedProducts, cartList);
           emit(
             state.copyWith(
@@ -134,11 +133,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
               totalPrice: totalPrice,
             ),
           );
-        },
-        failure: (error) {
+        case Error(error: final error):
           emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+      }
     } catch (error) {
       CustomLogger.logger.e(error.toString());
       emit(

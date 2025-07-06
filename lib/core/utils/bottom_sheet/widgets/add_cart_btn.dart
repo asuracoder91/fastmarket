@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../../core/utils/extensions.dart';
 import '../../../../presentation/main/bloc/cart_bloc/cart_bloc.dart';
+import '../../../../presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 
 const double _buttonHeight = 48;
 
@@ -14,9 +15,16 @@ class AddCartBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final blocState = context.watch<CartBloc>().state;
+    final cartBloc = context.watch<CartBloc>().state;
 
     return GestureDetector(
+      onTap:
+          () => context.read<CartListBloc>().add(
+            CartListAdded(
+              quantity: cartBloc.quantity,
+              productInfo: cartBloc.productInfo,
+            ),
+          ),
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -29,7 +37,7 @@ class AddCartBtn extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: blocState.totalPrice.toWon(),
+                text: cartBloc.totalPrice.toWon(),
                 style: textTheme.titleSmall?.semiBold?.copyWith(
                   color: colorScheme.onPrimary,
                 ),

@@ -94,7 +94,7 @@ class HomeAppBar extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
                     onTap: () {
-                      context.go(RoutePath.cart_list);
+                      context.push(RoutePath.cart_list);
                     },
                     child: Assets.svg.iconCart.svg(
                       colorFilter: ColorFilter.mode(

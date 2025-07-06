@@ -6,6 +6,7 @@ import '../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../core/theme/custom/custom_theme.dart';
 import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../core/utils/extensions.dart';
+import '../../../../../core/utils/widgets/cart_counter_btn.dart';
 import '../../../../../domain/model/display/cart/cart.model.dart';
 
 import '../../../../../gen/assets.gen.dart';
@@ -19,8 +20,10 @@ class CartProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final selectedList = context.watch<CartListBloc>().state.selectedProduct;
-    final bool isSelected = selectedList.contains(cart.product.productId);
+    final productId = cart.product.productId;
+    final bool isSelected = context.select(
+      (CartListBloc bloc) => bloc.state.selectedProduct.contains(productId),
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -111,63 +114,23 @@ class CartProductCard extends StatelessWidget {
                                     ),
 
                                     Spacer(),
-                                    // 수량 설정
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: const Border.fromBorderSide(
-                                          BorderSide(color: AppColors.outline),
-                                        ),
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(4),
-                                        ),
-                                      ),
-                                      width: 96,
-                                      height: 36,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Assets.svg.iconSubtract.svg(
-                                            width: 16,
-                                            height: 16,
-                                            colorFilter: ColorFilter.mode(
-                                              (cart.quantity == 1)
-                                                  ? colorScheme.contentFourth
-                                                  : colorScheme.contentPrimary,
-                                              BlendMode.srcIn,
-                                            ),
-                                          ),
-                                          Text(
-                                            cart.quantity.toString(),
-                                            style:
-                                                textTheme.labelLarge
-                                                    ?.copyWith(
-                                                      color:
-                                                          colorScheme
-                                                              .contentPrimary,
-                                                    )
-                                                    .semiBold,
-                                          ),
-                                          Assets.svg.iconAdd.svg(
-                                            width: 16,
-                                            height: 16,
-                                            colorFilter: ColorFilter.mode(
-                                              colorScheme.contentPrimary,
-                                              BlendMode.srcIn,
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            child: Assets.svg.iconAdd.svg(
-                                              width: 16,
-                                              height: 16,
-                                              colorFilter: ColorFilter.mode(
-                                                colorScheme.contentPrimary,
-                                                BlendMode.srcIn,
+
+                                    CartCountBtn(
+                                      quantity: cart.quantity,
+                                      decreased:
+                                          () =>
+                                              context.read<CartListBloc>().add(
+                                                CartListQtyDecreased(
+                                                  cart: cart,
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      increased:
+                                          () =>
+                                              context.read<CartListBloc>().add(
+                                                CartListQtyIncreased(
+                                                  cart: cart,
+                                                ),
+                                              ),
                                     ),
                                   ],
                                 ),
